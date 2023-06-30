@@ -1,5 +1,5 @@
 # Portfolio
-Ce référentiel GitHub contient le code source de mon portfolio, un site web construit avec Express. Ce portfolio a été créé pour présenter mon parcours scolaire et professionnel, mettre en valeur mes compétences et expériences, ainsi que pour fournir un moyen de me contacter.
+Ce repository GitHub contient le code source de mon portfolio, un site web construit avec Express. Ce portfolio a été créé pour présenter mon parcours scolaire et professionnel, mettre en valeur mes compétences et expériences, ainsi que pour fournir un moyen de me contacter.
 
 # Aperçu
 Mon portfolio est un site web statique qui affiche les informations clés sur mon parcours scolaire et professionnel. Il est conçu pour être simple, propre et facile à naviguer. Voici quelques-unes des fonctionnalités principales du portfolio :

@@ -10,16 +10,16 @@ Mon portfolio est un site web statique qui affiche les informations clés sur mo
 - Contact : Possibilité de me contacter directement via un formulaire de contact.
 
 # Installation
-- Clonez ce référentiel sur votre machine locale en utilisant la commande suivante :
+- Clonez ce référentiel sur votre machine locale en utilisant la commande suivante : `git clone https://github.com/FastiGun/Portfolio.git`
 
-- Accédez au répertoire du projet : `git clone https://github.com/FastiGun/Portfolio.git`
+- Accédez au répertoire du projet : `cd votre-portfolio`
 
 
-- Installez les dépendances en exécutant la commande suivante : `cd votre-portfolio`
+- Installez les dépendances en exécutant la commande suivante : `npm install`
 
 # Utilisation
 - Avant de lancer le serveur, assurez-vous d'avoir correctement configuré les informations de votre parcours scolaire et professionnel. Vous pouvez modifier ces informations dans le fichier data.js situé dans le répertoire src.
-`npm install`
+
 
 - Pour démarrer le serveur, utilisez la commande suivante : `npm start`
 

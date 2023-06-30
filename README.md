@@ -18,8 +18,6 @@ Mon portfolio est un site web statique qui affiche les informations clés sur mo
 - Installez les dépendances en exécutant la commande suivante : `npm install`
 
 # Utilisation
-- Avant de lancer le serveur, assurez-vous d'avoir correctement configuré les informations de votre parcours scolaire et professionnel. Vous pouvez modifier ces informations dans le fichier data.js situé dans le répertoire src.
-
 
 - Pour démarrer le serveur, utilisez la commande suivante : `npm start`
 

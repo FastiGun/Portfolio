@@ -12,7 +12,7 @@ Mon portfolio est un site web statique qui affiche les informations clés sur mo
 # Installation
 - Clonez ce référentiel sur votre machine locale en utilisant la commande suivante :
 
-- Accédez au répertoire du projet : `git clone https://github.com/votre_utilisateur/votre-portfolio.git`
+- Accédez au répertoire du projet : `git clone https://github.com/FastiGun/Portfolio.git`
 
 
 - Installez les dépendances en exécutant la commande suivante : `cd votre-portfolio`

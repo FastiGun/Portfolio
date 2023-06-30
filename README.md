@@ -27,7 +27,7 @@ Mon portfolio est un site web statique qui affiche les informations clés sur mo
 - Accédez [ici](http://localhost:3000) dans votre navigateur pour voir votre portfolio en action.
 
 # Contact
-Pour toute question, suggestion ou demande de collaboration, n'hésitez pas à me contacter. Vous pouvez me joindre par email [ici](benjamin760080@gmail.com) ou en utilisant le formulaire de contact disponible sur le site.
+Pour toute question, suggestion ou demande de collaboration, n'hésitez pas à me contacter. Vous pouvez me joindre en utilisant le formulaire de contact disponible sur le site.
 
 # Licence
 Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, le modifier et le distribuer selon les termes de cette licence.

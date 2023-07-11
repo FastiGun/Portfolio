@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "StayBook",
+  "name": "StayBook",
   "icons": [
     {
       "src": "favicon.ico",

@@ -120,6 +120,8 @@ $colorHover: #545980;
 
     .logout {
       position: absolute;
+      opacity: 1;
+      transform: translateY(0);
       top: 70px;
       right: 30px;
       height: 3em;
@@ -130,6 +132,7 @@ $colorHover: #545980;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: opacity 0.3s ease, transform 0.3s ease;
 
       p {
         text-decoration: none;
@@ -158,6 +161,12 @@ $colorHover: #545980;
           }
         }
       }
+    }
+
+    .logout-off {
+      opacity: 0;
+      transform: translateY(-220%);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
   }
 }

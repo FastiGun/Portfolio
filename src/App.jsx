@@ -37,13 +37,11 @@ function App() {
               </div>
 
             </div>
-            {showLogOut && (
-              <div className="logout">
-                <p href="#" onClick={handleClickLoged}>
-                  Déconnexion
-                </p>
-              </div>
-            )}
+            <div className={`logout ${showLogOut ? '' : 'logout-off'}`}>
+              <p href="#" onClick={handleClickLoged}>
+                Déconnexion
+              </p>
+            </div>
           </header>
         </div>
         <div className="content">

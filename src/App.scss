@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 $font-primary: 'Montserrat', sans-serif;
+$background-color: #cecece;
 $color1 : #070f4e;
 $color2 : #2772db;
 $color3: #3ab1c8;
@@ -11,6 +12,8 @@ $colorHover: #545980;
 :root {
   font-family: $font-primary;
   font-size: 16px;
+  background-color: $background-color;
+  color: $color1;
 }
 
 * {
@@ -22,9 +25,14 @@ $colorHover: #545980;
 .App {
   font-family: "Montserrat", sans-serif;
 
-  .content{
+  .content {
     max-width: 1024px;
     margin: 2em auto;
+    padding: 1em;
+
+    .h1-top {
+      font-size: 3em;
+    }
   }
 
   .App-header {
@@ -34,6 +42,7 @@ $colorHover: #545980;
     justify-content: space-between;
     background-color: $color3;
     padding: 1em 2em;
+    min-height: 5em;
 
     .gauche {
       display: flex;
@@ -43,10 +52,12 @@ $colorHover: #545980;
 
       h1 {
         transition: all ease 0.3s;
+
         a {
           text-decoration: none;
           color: inherit
         }
+
         &:hover {
           color: $colorHover;
           transition: all ease 0.3s;
@@ -93,7 +104,7 @@ $colorHover: #545980;
     .droite {
       height: 3em;
       width: 3em;
-      background: #f5ebeb;
+      background: $background-color;
       border-radius: 50%;
       font-weight: 700;
       display: flex;
@@ -128,7 +139,7 @@ $colorHover: #545980;
       width: 10em;
       background-color: $color1;
       border-radius: 5px;
-      box-shadow: #070f4e 0px 0px 10px;
+      box-shadow: $color1 0px 0px 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -136,7 +147,7 @@ $colorHover: #545980;
 
       p {
         text-decoration: none;
-        color: $color4;
+        color: $background-color;
         position: relative;
         transition: all ease 0.3s;
 

@@ -1,0 +1,50 @@
+@import '/src/App.scss';
+
+.form-connexion {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5em;
+    max-width: 600px;
+    margin: 5em auto;
+
+    .input-box {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        height: 2em;
+        max-width: 600px;
+        justify-content: center;
+        margin-bottom: 1em;
+
+        label {
+            flex: 3;
+            width: 100%;
+            height: 3em;
+            font-weight: 600;
+        }
+
+        input {
+            flex: 4;
+            width: 100%;
+            height: 3em;
+            padding: 1em;
+            border: none;
+        }
+    }
+
+    button {
+        height: 2em;
+        font-size: 2em;
+        font-family: $font-primary;
+        font-weight: 600;
+        color: $color1;
+        border: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $color3;
+            transition: all 0.3s ease;
+        }
+    }
+}

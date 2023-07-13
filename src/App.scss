@@ -63,6 +63,7 @@ $colorHover: #545980;
           color: $color1;
           transition: all 0.3s ease;
           position: relative;
+          padding: 0.1em 0.3em;
 
           &:hover {
             color: $colorHover;
@@ -75,13 +76,14 @@ $colorHover: #545980;
             left: 0;
             bottom: -2.5px;
             width: 0;
+            margin-left: 0.3em;
             height: 2px;
             background-color: $colorHover;
             transition: all 0.3s ease;
           }
 
           &:hover::after {
-            width: 100%;
+            width: calc(100% - 0.6em);
           }
         }
       }

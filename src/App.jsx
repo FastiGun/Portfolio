@@ -8,6 +8,7 @@ function App() {
 
   const [showLogOut, setShowLogOut] = useState(false);
   //const [loged, setLoged] = useState(false);
+  const [name, setName] = useState('Benjamin');
 
   const handleClickLogOut = () => {
     setShowLogOut(!showLogOut);
@@ -33,7 +34,7 @@ function App() {
             </div>
             <div className="droite" onClick={handleClickLogOut}>
               <div className="initiale">
-                <p>B</p>
+                <p>{name.split('')[0].toUpperCase()}</p>
               </div>
 
             </div>

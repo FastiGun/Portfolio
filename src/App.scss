@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+$font-primary: 'Montserrat', sans-serif;
+$color1 : #070f4e;
+$color2 : #2772db;
+$color3: #3ab1c8;
+$color4: #f5ebeb;
+$colorHover: #545980;
+
+
+:root {
+  font-family: $font-primary;
+  font-size: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+
+  .App-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color3;
+    padding: 1em 2em;
+
+    .gauche {
+      display: flex;
+      align-items: baseline;
+      gap: 3em;
+
+      h1 {
+
+
+
+        a {
+          text-decoration: none;
+          color: $color1;
+          opacity: 1;
+          transition: 0.2s;
+
+          &:hover {
+            opacity: 0.6;
+            transition: 0.2s;
+          }
+        }
+
+      }
+
+      .nav-home {
+        display: flex;
+        font-size: 1.5em;
+        gap: 1.5em;
+
+        a {
+          font-weight: 500;
+          text-decoration: none;
+          color: $color1;
+          transition: all 0.3s ease;
+          position: relative;
+
+          &:hover {
+            color: $colorHover;
+            transition: 0.2s;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -2.5px;
+            width: 0;
+            height: 2px;
+            background-color: $colorHover;
+            transition: all 0.3s ease;
+          }
+
+          &:hover::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .droite {
+      height: 3em;
+      width: 3em;
+      background: #f5ebeb;
+      border-radius: 50%;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        font-size: 2em;
+        height: 100%;
+        text-align: center;
+        color: $color1;
+      }
+    }
+  }
+}

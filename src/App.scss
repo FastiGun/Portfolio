@@ -20,8 +20,12 @@ $colorHover: #545980;
 }
 
 .App {
-  text-align: center;
   font-family: "Montserrat", sans-serif;
+
+  .content{
+    max-width: 1024px;
+    margin: 2em auto;
+  }
 
   .App-header {
     position: relative;
@@ -35,20 +39,17 @@ $colorHover: #545980;
       display: flex;
       align-items: baseline;
       gap: 3em;
+      color: $color1;
 
       h1 {
-
         transition: all ease 0.3s;
-
         a {
           text-decoration: none;
-          color: $color1;
-
-
+          color: inherit
         }
-
         &:hover {
-          transform: scale(1.05);
+          color: $colorHover;
+          transition: all ease 0.3s;
         }
       }
 
@@ -67,7 +68,7 @@ $colorHover: #545980;
 
           &:hover {
             color: $colorHover;
-            transition: 0.2s;
+            transition: all 0.3s ease;
           }
 
           &::after {
@@ -121,7 +122,6 @@ $colorHover: #545980;
     .logout {
       position: absolute;
       opacity: 1;
-      transform: translateY(0);
       top: 70px;
       right: 30px;
       height: 3em;
@@ -132,7 +132,7 @@ $colorHover: #545980;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease;
 
       p {
         text-decoration: none;
@@ -165,8 +165,8 @@ $colorHover: #545980;
 
     .logout-off {
       opacity: 0;
-      transform: translateY(-220%);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
   }
 }

@@ -8,7 +8,7 @@ function App() {
 
   const [showLogOut, setShowLogOut] = useState(false);
   //const [loged, setLoged] = useState(false);
-  const [name, setName] = useState('Benjamin');
+  const [name] = useState('Benjamin');
 
   const handleClickLogOut = () => {
     setShowLogOut(!showLogOut);
@@ -28,8 +28,8 @@ function App() {
                 <a href='/accueil'>StayBook</a>
               </h1>
               <nav className='nav-home'>
-                <a href="/accueil">Accueil</a>
                 <a href="/calendrier">Calendrier</a>
+                <a href="/reservations">Réservations</a>
               </nav>
             </div>
             <div className="droite" onClick={handleClickLogOut}>
@@ -44,14 +44,14 @@ function App() {
               </p>
             </div>
           </header>
-        </div>
-        <div className="content">
-          <Routes>
-            <Route exact path="/accueil" element={<Accueil />} />
-            <Route exact path="/calendrier" element={<Calendrier />} />
-            <Route exact path="/reservations" element={<Accueil />} />
-            <Route path="/*" element={<PageIntrouvable />} />
-          </Routes>
+          <div className="content">
+            <Routes>
+              <Route exact path="/accueil" element={<Accueil />} />
+              <Route exact path="/calendrier" element={<Calendrier />} />
+              <Route exact path="/reservations" element={<Reservations />} />
+              <Route path="/*" element={<PageIntrouvable />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>
@@ -64,6 +64,10 @@ function Accueil() {
 
 function Calendrier() {
   return <h2>Calendrier</h2>;
+}
+
+function Reservations() {
+  return <h2>Réservations</h2>;
 }
 
 function PageIntrouvable() {

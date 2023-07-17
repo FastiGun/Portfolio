@@ -32,19 +32,27 @@
         }
     }
 
+    .error{
+        color: rgb(196, 0, 0);
+        font-size: 0.8em;
+        margin-bottom: 1em;
+    }
+
     button {
         height: 2em;
         font-size: 2em;
-        font-family: $font-primary;
         font-weight: 600;
         color: $color1;
         border: none;
         transition: all 0.3s ease;
+        background-color: $color4;
+        border: none;
 
         &:hover {
             cursor: pointer;
-            background-color: $color3;
-            transition: all 0.3s ease;
+            background-color: $colorHover;
+            color: $color4;
+            transition: 0.3s all ease;
         }
     }
 }

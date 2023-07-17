@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 $font-primary: 'Montserrat', sans-serif;
+$font-secondary: 'Cambria', serif;
 $background-color: #cecece;
 $color1 : #070f4e;
 $color2 : #2772db;
@@ -10,7 +11,6 @@ $colorHover: #545980;
 
 
 :root {
-  font-family: $font-primary;
   font-size: 16px;
   background-color: $background-color;
   color: $color1;
@@ -20,10 +20,10 @@ $colorHover: #545980;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: $font-primary;
 }
 
 .App {
-  font-family: "Montserrat", sans-serif;
 
   .content {
     max-width: 1024px;
@@ -32,6 +32,7 @@ $colorHover: #545980;
 
     .h1-top {
       font-size: 3em;
+      font-family: $font-secondary;
     }
   }
 
@@ -44,18 +45,34 @@ $colorHover: #545980;
     padding: 1em 2em;
     min-height: 5em;
 
+    @media screen and (max-width: 800px) {
+      font-size: 1em !important;
+      padding: 0.5em;
+    }
+
     .gauche {
       display: flex;
       align-items: baseline;
       gap: 3em;
       color: $color1;
 
+      @media screen and (max-width: 800px) {
+        gap: 1em;
+        align-items: baseline;
+      }
+
       h1 {
         transition: all ease 0.3s;
 
+        @media screen and (max-width: 800px) {
+          font-size: 1.2em !important;
+        }
+
         a {
           text-decoration: none;
-          color: inherit
+          color: inherit;
+          font-family: $font-secondary;
+          font-size: 1.2em;
         }
 
         &:hover {
@@ -69,6 +86,11 @@ $colorHover: #545980;
         font-size: 1.5em;
         gap: 1.5em;
 
+        @media screen and (max-width: 800px) {
+          font-size: 1em !important;
+          gap: 0.7em;
+        }
+
         a {
           font-weight: 500;
           text-decoration: none;
@@ -76,6 +98,7 @@ $colorHover: #545980;
           transition: all 0.3s ease;
           position: relative;
           padding: 0.1em 0.3em;
+          font-size: 0.8em;
 
           &:hover {
             color: $colorHover;
@@ -119,6 +142,7 @@ $colorHover: #545980;
           height: 100%;
           text-align: center;
           color: $color1;
+          font-family: $font-secondary;
         }
       }
 
@@ -179,5 +203,22 @@ $colorHover: #545980;
       transition: opacity 0.3s ease;
       pointer-events: none;
     }
+
+
   }
+}
+
+.react-calendar {
+  height: 350px;
+  background-color: $color4;
+}
+
+.react-calendar__tile--active {
+  border-radius: 1em;
+  background-color: $color3 !important;
+}
+
+.react-calendar__tile--now {
+  border-radius: 1em;
+  background-color: $color4 !important;
 }

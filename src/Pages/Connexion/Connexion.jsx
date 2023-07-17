@@ -2,30 +2,31 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Connexion.scss';
 import { AuthContext } from '../../Utils/AuthContext';
-import { ToastContext } from '../../Utils/ToastContext';
 
 const Connexion = () => {
 
     const { setLogged, setUserName } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMail, setErrorMail] = useState(false);
+    const [errorMDP, setErrorMDP] = useState(false);
     const navigate = useNavigate();
-    const toast = useContext(ToastContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email === 'mail@mail.com') {
+            setErrorMail(false)
             if (password === 'motDePasse') {
+                setErrorMDP(false)
                 setLogged(true);
                 const userName = 'Benjamin';
                 setUserName(userName);
-                toast.current.show({ severity: 'success', summary: 'Connexion réussie', detail: `Bonjour ${userName}`, life: 2000 });
                 navigate('/');
             } else {
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'Mot de passe incorrect', life: 3000 });
+                setErrorMDP(true)
             }
         } else {
-            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Email inconnu', life: 3000 });
+            setErrorMail(true)
         }
     }
 
@@ -46,10 +47,16 @@ const Connexion = () => {
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" placeholder="mail@mail.com" onChange={handleChangeMail} />
                 </div>
+                {errorMail && (
+                    <span className="error">Ce mail ne correspond à aucun compte</span>
+                )}
                 <div className="input-box">
                     <label htmlFor="password">Mot de passe</label>
                     <input type="password" name="password" placeholder="********" onChange={handleChangePassword} />
                 </div>
+                {errorMDP && (
+                    <span className="error">Mot de passe incorrect</span>
+                )}
                 <button type="submit">Connexion</button>
             </form>
         </>

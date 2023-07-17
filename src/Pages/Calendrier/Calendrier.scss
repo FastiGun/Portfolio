@@ -1,0 +1,39 @@
+@import '/src/App.scss';
+
+* {
+    text-decoration: none;
+}
+
+.calendrier {
+    display: flex;
+    margin-top: 3em;
+    gap: 4em;
+    justify-content: center;
+
+    .calendar {
+        border-radius: 1em;
+
+        *:hover {
+            border-radius: 1em;
+        }
+
+        *:active {
+            border-radius: 1em;
+        }
+    }
+
+    .infos {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1em;
+        height: 350px;
+
+        p {
+            &:nth-child(1) {
+                font-weight: 700;
+            }
+        }
+    }
+}

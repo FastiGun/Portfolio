@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.scss';
 import Accueil from './Pages/Accueil/Accueil';
 import Calendrier from './Pages/Calendrier/Calendrier';
-import Reservations from './Pages/Reservations/Reservations';
 import Connexion from './Pages/Connexion/Connexion';
+import NouvelleReservation from './Pages/NouvelleReservation/NouvelleReservation';
 import ProtectedRoute from './Utils/ProtectedRoute';
 import { AuthContext } from './Utils/AuthContext';
 import { useState, useContext } from 'react';
@@ -38,7 +38,7 @@ function App() {
                 <nav className='nav-home'>
                   {logged && (<>
                     <Link to="/calendrier">Calendrier</Link>
-                    <Link to="/reservations">Réservations</Link>
+                    <Link to="/nouvelle-reservation">Réserver</Link>
                   </>)}
                 </nav>
               </div>
@@ -63,7 +63,7 @@ function App() {
                 <Route exact path="/connexion" element={<Connexion />} />
                 <Route exact path="/" element={<ProtectedRoute isLoggedIn={logged}><Accueil /></ProtectedRoute>} />
                 <Route exact path="/calendrier" element={<ProtectedRoute isLoggedIn={logged}><Calendrier /></ProtectedRoute>} />
-                <Route exact path="/reservations" element={<ProtectedRoute isLoggedIn={logged}><Reservations /></ProtectedRoute>} />
+                <Route exact path="/nouvelle-reservation" element={<ProtectedRoute isLoggedIn={logged}><NouvelleReservation /></ProtectedRoute>} />
                 <Route path="/*" element={<PageIntrouvable />} />
               </Routes>
             </div>

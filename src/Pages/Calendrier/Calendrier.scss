@@ -9,6 +9,7 @@
     margin-top: 3em;
     gap: 4em;
     justify-content: center;
+    flex: 1;
 
     .calendar {
         border-radius: 1em;
@@ -29,6 +30,7 @@
         justify-content: flex-start;
         gap: 1em;
         height: 350px;
+        flex: 1;
 
         p {
             &:nth-child(1) {

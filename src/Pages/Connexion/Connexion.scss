@@ -32,10 +32,12 @@
         }
     }
 
-    .error{
+    .error {
         color: rgb(196, 0, 0);
         font-size: 0.8em;
         margin-bottom: 1em;
+        width: 100%;
+        text-align: right;
     }
 
     button {

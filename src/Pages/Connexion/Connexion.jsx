@@ -47,16 +47,12 @@ const Connexion = () => {
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" placeholder="mail@mail.com" onChange={handleChangeMail} />
                 </div>
-                {errorMail && (
-                    <span className="error">Ce mail ne correspond à aucun compte</span>
-                )}
+                <span className="error">{errorMail && ("Ce mail ne correspond pas à un compte")}</span>
                 <div className="input-box">
                     <label htmlFor="password">Mot de passe</label>
                     <input type="password" name="password" placeholder="********" onChange={handleChangePassword} />
                 </div>
-                {errorMDP && (
-                    <span className="error">Mot de passe incorrect</span>
-                )}
+                <span className="error">{errorMDP && ("Mot de passe incorrect")}</span>
                 <button type="submit">Connexion</button>
             </form>
         </>

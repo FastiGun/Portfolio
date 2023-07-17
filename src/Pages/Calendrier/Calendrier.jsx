@@ -23,13 +23,17 @@ const Calendrier = () => {
             <h1 className='h1-top'>Calendrier</h1>
             <div className='calendrier'>
                 <Calendar className='calendar' onClickDay={handleDayClick} />
-                {showInfos && (
-                    <div className="infos">
-                        <p className="nom-locataire">Mr DUPONT</p>
-                        <p className="date">Dates : 10/07/2022 - 12/07/2022</p>
-                        <p className="heure">Nombre de personnes : 3</p>
-                    </div>
-                )}
+
+                <div className="infos">
+                    {showInfos && (
+                        <>
+                            <p className="nom-locataire">Mr DUPONT</p>
+                            <p className="date">Dates : 10/07/2022 - 12/07/2022</p>
+                            <p className="heure">Nombre de personnes : 3</p>
+                        </>
+                    )}
+                </div>
+
             </div>
         </>
     );

@@ -11,7 +11,7 @@ import { useState, useContext } from 'react';
 
 function App() {
 
-  const { logged, setLogged, userName, setUserName } = useContext(AuthContext);
+  const { logged, setLogged, userName, setUserName, token, setToken } = useContext(AuthContext);
   const [showLogOut, setShowLogOut] = useState(false);
 
   const handleClickLogOut = () => {
@@ -22,11 +22,11 @@ function App() {
     setLogged(false);
     setUserName('');
     setShowLogOut(!showLogOut);
-    //setAuthToken('');
+    setToken('');
   }
 
   return (
-    <AuthContext.Provider value={{ logged, setLogged, userName, setUserName }}>
+    <AuthContext.Provider value={{ logged, setLogged, userName, setUserName, token, setToken }}>
       <Router>
         <div>
           <div className="App">

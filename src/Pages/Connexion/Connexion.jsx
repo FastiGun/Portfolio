@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Connexion.scss';
 import { AuthContext } from '../../Utils/AuthContext';
 
 const Connexion = () => {
 
-    const { setLogged, setUserName } = useContext(AuthContext);
+    const { setLogged, setUserName, setToken } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMail, setErrorMail] = useState(false);
@@ -14,20 +15,30 @@ const Connexion = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (email === 'mail@mail.com') {
-            setErrorMail(false)
-            if (password === 'motDePasse') {
-                setErrorMDP(false)
+        axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, {
+            email: email,
+            password: password
+        }).then((response) => {
+            if (response.status === 200) {
+                setUserName(response.data.username);
+                setToken(response.data.token);
                 setLogged(true);
-                const userName = 'Benjamin';
-                setUserName(userName);
                 navigate('/');
-            } else {
-                setErrorMDP(true)
+            } 
+        }).catch((error) => {
+            if (error.response.status === 401) {
+                if(error.response.data.message === "Email invalide"){
+                    setErrorMail(true);
+                } else {
+                    setErrorMail(false);
+                }
+                if(error.response.data.message === "Mot de passe incorrect"){
+                    setErrorMDP(true);
+                } else {
+                    setErrorMDP(false);
+                }
             }
-        } else {
-            setErrorMail(true)
-        }
+        })
     }
 
     const handleChangeMail = (e) => {

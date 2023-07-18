@@ -7,6 +7,7 @@ const NouvelleReservation = () => {
     const [dateArrivee, setDateArrivee] = useState(null);
     const [dateDepart, setDateDepart] = useState(null);
     const [nombrePersonnes, setNombrePersonnes] = useState(0);
+    const [nomLocataire, setNomLocataire] = useState('');
 
     const handleDateChange = (date) => {
         if (dateArrivee === null) {
@@ -36,6 +37,10 @@ const NouvelleReservation = () => {
             setNombrePersonnes(nombrePersonnes - 1);
     }
 
+    const handleChangeNomLocataire = (e) => {
+        setNomLocataire(e.target.value);
+    }
+
     return (
         <>
             <h1 className='h1-top'>Nouvelle réservation</h1>
@@ -58,6 +63,14 @@ const NouvelleReservation = () => {
                             type="text"
                             value={dateDepart ? dateDepart.toLocaleDateString() : ''}
                             readOnly
+                        />
+                    </div>
+                    <div className='input'>
+                        <label>Nom du locataire</label>
+                        <input
+                            type="text"
+                            value={nomLocataire}
+                            onChange={handleChangeNomLocataire}
                         />
                     </div>
                     <div className='input'>

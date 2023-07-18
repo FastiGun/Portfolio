@@ -69,7 +69,7 @@ const Connexion = () => {
                 </div>
                 <span className="error">{errorMDP && ("Mot de passe incorrect")}</span>
                 {loading ? (
-                    <div className="loader"><Circles className="loader-circles" height={40} width={40} /></div>
+                    <div className="loader"><Circles color='#070f4e' height={40} width={40} /></div>
                 ) : <button type="submit">Valider</button>}
             </form>
         </>

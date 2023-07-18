@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Connexion.scss';
 import { AuthContext } from '../../Utils/AuthContext';
+import { Circles } from 'react-loader-spinner';
 
 const Connexion = () => {
 
@@ -11,10 +12,12 @@ const Connexion = () => {
     const [password, setPassword] = useState('');
     const [errorMail, setErrorMail] = useState(false);
     const [errorMDP, setErrorMDP] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true);
         axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`, {
             email: email,
             password: password
@@ -38,6 +41,7 @@ const Connexion = () => {
                     setErrorMDP(false);
                 }
             }
+            setLoading(false);
         })
     }
 
@@ -64,7 +68,9 @@ const Connexion = () => {
                     <input type="password" name="password" placeholder="********" onChange={handleChangePassword} />
                 </div>
                 <span className="error">{errorMDP && ("Mot de passe incorrect")}</span>
-                <button type="submit">Connexion</button>
+                {loading ? (
+                    <div className="loader"><Circles className="loader-circles" height={40} width={40} /></div>
+                ) : <button type="submit">Valider</button>}
             </form>
         </>
     );

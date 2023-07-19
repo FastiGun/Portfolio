@@ -8,7 +8,8 @@ import './Calendrier.scss';
 
 const Calendrier = () => {
     const { token } = useContext(AuthContext);
-    const [reservations, setReservations] = useState();
+    const [reservations, setReservations] = useState([]);
+    const [reservedDates, setReservedDates] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showInfos, setShowInfos] = useState(false);
 
@@ -19,9 +20,41 @@ const Calendrier = () => {
             }
         }).then((response) => {
             setReservations(response.data.reservations);
-        });
+            const reservedDatesArray = [];
+            response.data.reservations.forEach((reservation) => {
+                const startDate = new Date(reservation.dateArrivee);
+                const endDate = new Date(reservation.dateDepart);
+          
+                // Générez toutes les dates entre la date d'arrivée et la date de départ
+                for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+                  reservedDatesArray.push(new Date(date));
+                }
+              });
+              setReservedDates(reservedDatesArray);
+            });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ ]);
+
+    const tileContent = ({ date }) => {
+        const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const reservedDatesAdjusted = reservedDates.map(reservedDate => {
+          const adjustedReservedDate = new Date(reservedDate);
+          adjustedReservedDate.setDate(adjustedReservedDate.getDate() - 1);
+          return adjustedReservedDate;
+        });
+        
+        if (reservedDatesAdjusted.some(reservedDate => {
+          const formattedReservedDate = new Date(reservedDate.getFullYear(), reservedDate.getMonth(), reservedDate.getDate());
+          return formattedReservedDate.getTime() === formattedDate.getTime();
+        })) {
+          return "reserved";
+        }
+        
+        return "";
+      };
+      
+      
+    
 
     const handleDayClick = (date) => {
         if (selectedDate && date.getTime() === selectedDate.getTime()) {
@@ -42,7 +75,7 @@ const Calendrier = () => {
                 </div>
             ) : (
                 <div className='calendrier'>
-                <Calendar className='calendar' onClickDay={handleDayClick} />
+                <Calendar className='calendar' onClickDay={handleDayClick} tileClassName={tileContent}  />
 
                 <div className="infos">
                     {showInfos && (

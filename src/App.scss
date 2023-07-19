@@ -214,14 +214,26 @@ $colorHover: #545980;
   padding: 1em;
 }
 
+.react-calendar__tile{
+  border-radius: 1em;
+  transition: 0.3s all ease;
+}
+
 .react-calendar__tile--active {
   border-radius: 1em;
   background-color: $color3 !important;
 }
 
+.react-calendar__tile--now:hover, .react-calendar__tile:hover {
+  border-radius: 1em;
+  background-color: $color3 !important;
+  transition: 0.3s all ease;
+  color: white;
+}
+
 .react-calendar__tile--now {
   border-radius: 1em;
-  background-color: $color4 !important;
+  background-color: #070f4e00;
 }
 
 .loader-page{

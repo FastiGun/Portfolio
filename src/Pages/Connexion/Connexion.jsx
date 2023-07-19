@@ -47,6 +47,8 @@ const Connexion = () => {
                 setToken(response.data.token);
                 sessionStorage.setItem('token', response.data.token);
                 sessionStorage.setItem('username', response.data.username);
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('username', response.data.username);
                 setLogged(true);
                 navigate('/');
             } 

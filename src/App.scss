@@ -223,3 +223,11 @@ $colorHover: #545980;
   border-radius: 1em;
   background-color: $color4 !important;
 }
+
+.loader-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20em;
+  width: 100%;
+}

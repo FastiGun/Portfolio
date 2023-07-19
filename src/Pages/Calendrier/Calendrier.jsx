@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../Utils/AuthContext';
+import axios from "axios";
 import Calendar from 'react-calendar';
+import { Circles } from 'react-loader-spinner';
 import 'react-calendar/dist/Calendar.css';
 import './Calendrier.scss';
 
 const Calendrier = () => {
-    //const [reservations, setReservations] = useState([]);
+    const { token } = useContext(AuthContext);
+    const [reservations, setReservations] = useState();
     const [selectedDate, setSelectedDate] = useState(null);
     const [showInfos, setShowInfos] = useState(false);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
+            setReservations(response.data.reservations);
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ ]);
 
     const handleDayClick = (date) => {
         if (selectedDate && date.getTime() === selectedDate.getTime()) {
@@ -21,7 +36,12 @@ const Calendrier = () => {
     return (
         <>
             <h1 className='h1-top'>Calendrier</h1>
-            <div className='calendrier'>
+            { reservations === undefined || reservations === null ? (
+                <div className="loader-page">
+                    <Circles color='#070f4e' height={100} width={100} />
+                </div>
+            ) : (
+                <div className='calendrier'>
                 <Calendar className='calendar' onClickDay={handleDayClick} />
 
                 <div className="infos">
@@ -35,6 +55,8 @@ const Calendrier = () => {
                 </div>
 
             </div>
+            
+            )}
         </>
     );
 }

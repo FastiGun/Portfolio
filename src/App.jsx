@@ -23,6 +23,10 @@ function App() {
     setUserName('');
     setShowLogOut(!showLogOut);
     setToken('');
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
+    localStorage.removeItem('username');
   }
 
   return (

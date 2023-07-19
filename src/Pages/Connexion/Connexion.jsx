@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Connexion.scss';
@@ -15,6 +15,26 @@ const Connexion = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const localStorageToken = localStorage.getItem('token');
+        const sessionStorageToken = sessionStorage.getItem('token');
+        const localStorageUsername = localStorage.getItem('username');
+        const sessionStorageUsername = sessionStorage.getItem('username');
+
+        
+        if (localStorageToken) {
+            setToken(localStorageToken);
+            setUserName(localStorageUsername);
+            setLogged(true);
+            navigate('/');
+        } else if (sessionStorageToken) {
+            setToken(sessionStorageToken);
+            setUserName(sessionStorageUsername);
+            setLogged(true);
+            navigate('/');
+        }
+    }, [navigate, setLogged, setToken]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
@@ -25,6 +45,8 @@ const Connexion = () => {
             if (response.status === 200) {
                 setUserName(response.data.username);
                 setToken(response.data.token);
+                sessionStorage.setItem('token', response.data.token);
+                sessionStorage.setItem('username', response.data.username);
                 setLogged(true);
                 navigate('/');
             } 

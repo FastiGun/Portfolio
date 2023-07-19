@@ -22,7 +22,7 @@ const Connexion = () => {
         const sessionStorageUsername = sessionStorage.getItem('username');
 
         
-        if (localStorageToken) {
+        if (localStorageToken || sessionStorageToken) {
             setToken(localStorageToken);
             setUserName(localStorageUsername);
             setLogged(true);

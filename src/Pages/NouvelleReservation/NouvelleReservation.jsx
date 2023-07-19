@@ -38,9 +38,8 @@ const NouvelleReservation = () => {
         axios.post(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             "nomLocataire": nomLocataire,
             "prenomLocataire": prenomLocataire,
-            "dateArrivee": formatDate(dateArrivee),
-            "dateDepart": formatDate(dateDepart),
-            "dureeLocation": calculateDuration(formatDate(dateArrivee), formatDate(dateDepart)),
+            "dateArrivee": dateArrivee,
+            "dateDepart": dateDepart,
             "nombrePersonne": nombrePersonnes
         }, {
             headers: {
@@ -60,29 +59,6 @@ const NouvelleReservation = () => {
                 toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Réservation impossible, dates déjà réservées'});
             }
         })
-    }
-
-    const addDays = (date, days) => {
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + days);
-        return newDate;
-      };
-
-    const formatDate = (date) => {
-        console.log(date, typeof date);
-        const dateParts = date.split('/');
-        const day = dateParts[0];
-        const month = dateParts[1];
-        const year = dateParts[2];
-        const dateToSend = new Date(year, (month - 1), day);
-        return addDays(dateToSend, 1);
-    }
-
-    const calculateDuration = (dateArrivee, dateDepart) => {
-        const differenceMs = Math.abs(dateDepart - dateArrivee);
-
-        // Convertir la différence en jours
-        return Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
     }
 
     const handleIncrementNbPersonnes = (e) => {

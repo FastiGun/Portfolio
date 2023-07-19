@@ -33,7 +33,7 @@ const Connexion = () => {
             setLogged(true);
             navigate('/');
         }
-    }, [navigate, setLogged, setToken]);
+    }, [navigate, setLogged, setToken, setUserName]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

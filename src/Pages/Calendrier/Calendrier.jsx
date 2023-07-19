@@ -3,12 +3,14 @@ import { AuthContext } from '../../Utils/AuthContext';
 import axios from "axios";
 import Calendar from 'react-calendar';
 import { Circles } from 'react-loader-spinner';
+import { parse } from 'date-fns';
 import 'react-calendar/dist/Calendar.css';
 import './Calendrier.scss';
 
 const Calendrier = () => {
     const { token } = useContext(AuthContext);
     const [reservations, setReservations] = useState([]);
+    const [reservationInfo, setReservationInfo] = useState(null);
     const [reservedDates, setReservedDates] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showInfos, setShowInfos] = useState(false);
@@ -20,75 +22,94 @@ const Calendrier = () => {
             }
         }).then((response) => {
             setReservations(response.data.reservations);
-            const reservedDatesArray = [];
-            response.data.reservations.forEach((reservation) => {
-                const startDate = new Date(reservation.dateArrivee);
-                const endDate = new Date(reservation.dateDepart);
-          
-                // Générez toutes les dates entre la date d'arrivée et la date de départ
+            const reservedDatesArray = response.data.reservations.flatMap((reservation) => {
+                const startDate = parse(reservation.dateArrivee, 'dd/MM/yyyy', new Date());
+                const endDate = parse(reservation.dateDepart, 'dd/MM/yyyy', new Date());
+                const dates = [];
                 for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-                  reservedDatesArray.push(new Date(date));
+                    dates.push(new Date(date));
                 }
-              });
-              setReservedDates(reservedDatesArray);
+                return dates;
             });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ ]);
+            setReservedDates(reservedDatesArray);
+        });
+    }, [token]);
 
     const tileContent = ({ date }) => {
         const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        const reservedDatesAdjusted = reservedDates.map(reservedDate => {
-          const adjustedReservedDate = new Date(reservedDate);
-          adjustedReservedDate.setDate(adjustedReservedDate.getDate() - 1);
-          return adjustedReservedDate;
-        });
-        
-        if (reservedDatesAdjusted.some(reservedDate => {
-          const formattedReservedDate = new Date(reservedDate.getFullYear(), reservedDate.getMonth(), reservedDate.getDate());
-          return formattedReservedDate.getTime() === formattedDate.getTime();
+        if (reservedDates.some((reservedDate) => {
+            const formattedReservedDate = new Date(reservedDate.getFullYear(), reservedDate.getMonth(), reservedDate.getDate());
+            return formattedReservedDate.getTime() === formattedDate.getTime();
         })) {
-          return "reserved";
+            return "reserved";
         }
-        
         return "";
-      };
-      
-      
-    
+    };
 
     const handleDayClick = (date) => {
-        if (selectedDate && date.getTime() === selectedDate.getTime()) {
+        if (selectedDate && isSameDay(date, selectedDate)) {
             setSelectedDate(null);
             setShowInfos(false);
+            setReservationInfo(null);
         } else {
             setSelectedDate(date);
             setShowInfos(true);
+
+            const reservation = reservations.find((reservation) => {
+                const startDate = parse(reservation.dateArrivee, 'dd/MM/yyyy', new Date());
+                const endDate = parse(reservation.dateDepart, 'dd/MM/yyyy', new Date());
+                startDate.setHours(0, 0, 0, 0);
+                endDate.setHours(23, 59, 59, 999);
+                return startDate <= date && date <= endDate;
+            });
+
+            setReservationInfo(reservation);
         }
+    };
+
+    const isSameDay = (date1, date2) => {
+        const formattedDate1 = formatDate(date1);
+        const formattedDate2 = formatDate(date2);
+        return formattedDate1 === formattedDate2;
+    };
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${day}/${month}/${year}`;
     };
 
     return (
         <>
             <h1 className='h1-top'>Calendrier</h1>
-            { reservations === undefined || reservations === null ? (
+            {reservations === undefined || reservations === null ? (
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div>
             ) : (
                 <div className='calendrier'>
-                <Calendar className='calendar' onClickDay={handleDayClick} tileClassName={tileContent}  />
+                    <Calendar className='calendar' onClickDay={handleDayClick} tileClassName={tileContent} />
 
-                <div className="infos">
-                    {showInfos && (
-                        <>
-                            <p className="nom-locataire">Mr DUPONT</p>
-                            <p className="date">Dates : 10/07/2022 - 12/07/2022</p>
-                            <p className="heure">Nombre de personnes : 3</p>
-                        </>
-                    )}
+                    <div className="infos">
+                        {showInfos && (
+                            <>
+                                {reservationInfo ? (
+                                    <>
+                                        <p className="nom-locataire">{reservationInfo.nomLocataire} {reservationInfo.prenomLocataire}</p>
+                                        <p className="date">Du {reservationInfo.dateArrivee} au {reservationInfo.dateDepart}</p> {/* Utilisez directement les dates de réservation sans appel à toLocaleDateString */}
+                                        <p className="nbJours">{reservationInfo.dureeLocation} jours</p>
+                                        <p className="heure">{reservationInfo.nombrePersonne} personnes</p>
+                                    </>
+                                ) : (
+                                    <p className="no-reservation">Aucune réservation pour cette journée</p>
+                                )}
+                            </>
+                        )}
+                    </div>
+
                 </div>
 
-            </div>
-            
             )}
         </>
     );

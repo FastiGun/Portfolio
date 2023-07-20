@@ -13,6 +13,7 @@ const Connexion = () => {
     const [errorMail, setErrorMail] = useState(false);
     const [errorMDP, setErrorMDP] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [loadingReconnect, setLoadingReconnect] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,6 +23,7 @@ const Connexion = () => {
         const sessionStorageUsername = sessionStorage.getItem('username');
       
         const verifyToken = async (token) => {
+          setLoadingReconnect(true);
           try {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/verify`, {
               token: token
@@ -102,7 +104,12 @@ const Connexion = () => {
     return (
         <>
             <h1 className='h1-top'>Connexion</h1>
-            <form className='form-connexion' action="" onSubmit={handleSubmit}>
+            { loadingReconnect ? (
+                <div className="loader-page">
+                    <Circles color='#070f4e' height={100} width={100} />
+                </div>
+            ) : (
+                <form className='form-connexion' action="" onSubmit={handleSubmit}>
                 <div className="input-box">
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" placeholder="mail@mail.com" onChange={handleChangeMail} />
@@ -117,6 +124,7 @@ const Connexion = () => {
                     <div className="loader"><Circles color='#070f4e' height={40} width={40} /></div>
                 ) : <button type="submit">Valider</button>}
             </form>
+            )}
         </>
     );
 }

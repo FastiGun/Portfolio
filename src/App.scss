@@ -215,8 +215,11 @@ $colorHover: #545980;
 }
 
 .react-calendar__tile{
+  margin: 3px;
   border-radius: 1em;
   transition: 0.3s all ease;
+  border: 2px solid $color4 !important;
+  box-sizing: border-box;
 }
 
 .react-calendar__tile--active {

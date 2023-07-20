@@ -20,19 +20,41 @@ const Connexion = () => {
         const sessionStorageToken = sessionStorage.getItem('token');
         const localStorageUsername = localStorage.getItem('username');
         const sessionStorageUsername = sessionStorage.getItem('username');
-        
+      
+        const verifyToken = async (token) => {
+          try {
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/verify`, {
+              token: token
+            });
+      
+            if (response.status === 200) {
+              setToken(token);
+              setUserName(localStorageUsername || sessionStorageUsername);
+              setLogged(true);
+              navigate('/');
+            }
+          } catch (error) {
+            if (error.response.status === 401 || error.response.status === 400 || error.response.status === 500) {
+              setLogged(false);
+              setUserName('');
+              setToken('');
+              localStorage.removeItem('token');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('username');
+              localStorage.removeItem('username');
+              navigate('/');
+            }
+          }
+        };
+      
         if (localStorageToken || sessionStorageToken) {
-            setToken(localStorageToken);
-            setUserName(localStorageUsername);
-            setLogged(true);
-            navigate('/');
-        } else if (sessionStorageToken) {
-            setToken(sessionStorageToken);
-            setUserName(sessionStorageUsername);
-            setLogged(true);
-            navigate('/');
+          const tokenToVerify = localStorageToken || sessionStorageToken;
+          verifyToken(tokenToVerify);
+        } else {
+          navigate('/connexion');
         }
-    }, [navigate, setLogged, setToken, setUserName]);
+      }, [navigate, setLogged, setToken, setUserName]);
+      
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -58,6 +58,9 @@ const NouvelleReservation = () => {
             if (error.response.status === 409) {
                 toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Réservation impossible, dates déjà réservées'});
             }
+            else {
+                toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Erreur inconnue'});
+            }
         })
     }
 

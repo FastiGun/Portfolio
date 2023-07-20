@@ -83,7 +83,7 @@ const Calendrier = () => {
     return (
         <>
             <h1 className='h1-top'>Calendrier</h1>
-            {reservations === undefined || reservations === [] ? (
+            {reservedDates.length === 0 ? (
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div>

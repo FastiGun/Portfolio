@@ -5,6 +5,7 @@ import './NouvelleReservation.scss';
 import axios from 'axios';
 import { AuthContext } from '../../Utils/AuthContext';
 import { ToastContext } from '../../Utils/ToastContext';
+import { Circles } from 'react-loader-spinner';
 import { parse } from 'date-fns';
 
 const NouvelleReservation = () => {
@@ -37,6 +38,7 @@ const NouvelleReservation = () => {
             });
             setReservedDates(reservedDatesArray);
         });
+        
     }, [token]);
 
     const tileContent = ({ date }) => {
@@ -129,65 +131,70 @@ const NouvelleReservation = () => {
     return (
         <>
             <h1 className='h1-top'>Nouvelle réservation</h1>
-            <div className='calendrier'>
-                <Calendar className='calendar'
-                    onChange={handleDateChange}
-                    tileClassName={tileContent} 
-                />
-                <form className="inputs" onSubmit={handleSubmit}>
-                    <div className='input'>
-                        <label>Date d'arrivée</label>
-                        <input
-                            type="text"
-                            value={dateArrivee ? dateArrivee : ''}
-                            readOnly
-                            required
-                        />
-                    </div>
-                    <div className='input'>
-                        <label>Date de départ</label>
-                        <input
-                            type="text"
-                            value={dateDepart ? dateDepart : ''}
-                            readOnly
-                            required
-                        />
-                    </div>
-                    <div className='input'>
-                        <label>Nom du locataire</label>
-                        <input
-                            type="text"
-                            value={nomLocataire}
-                            onChange={handleChangeNomLocataire}
-                            required
-                        />
-                    </div>
-                    <div className='input'>
-                        <label>Prénom du locataire</label>
-                        <input
-                            type="text"
-                            value={prenomLocataire}
-                            onChange={handleChangePrenomLocataire}
-                            required
-                        />
-                    </div>
-                    <div className='input'>
-                        <label>Nombre de personne</label>
-                        <div className="nbPersonneSelector">
-                            <button onClick={handleDecrementNbPersonnes}>-</button>
-                            <p className="nombrePersonne">{nombrePersonnes}</p>
-                            <button onClick={handleIncrementNbPersonnes}>+</button>
+            {reservedDates.length === 0 ? (
+                <div className="loader-page"><Circles color='#070f4e' height={100} width={100} /></div>
+            ) : (
+                <div className='calendrier'>
+                    <Calendar className='calendar'
+                        onChange={handleDateChange}
+                        tileClassName={tileContent} 
+                    />
+                    <form className="inputs" onSubmit={handleSubmit}>
+                        <div className='input'>
+                            <label>Date d'arrivée</label>
+                            <input
+                                type="text"
+                                value={dateArrivee ? dateArrivee : ''}
+                                readOnly
+                                required
+                            />
                         </div>
-                    </div>
-                    <div className="input double-btn">
-                        <button onClick={handleClickResetDates}>Effacer les dates</button>
-                        <button onClick={handleClickReset}>Tout effacer</button>
-                    </div>
-                    <div className="input">
-                        <button onClick={handleSubmit}>Créer la réservation</button>
-                    </div>
-                </form>
-            </div>
+                        <div className='input'>
+                            <label>Date de départ</label>
+                            <input
+                                type="text"
+                                value={dateDepart ? dateDepart : ''}
+                                readOnly
+                                required
+                            />
+                        </div>
+                        <div className='input'>
+                            <label>Nom du locataire</label>
+                            <input
+                                type="text"
+                                value={nomLocataire}
+                                onChange={handleChangeNomLocataire}
+                                required
+                            />
+                        </div>
+                        <div className='input'>
+                            <label>Prénom du locataire</label>
+                            <input
+                                type="text"
+                                value={prenomLocataire}
+                                onChange={handleChangePrenomLocataire}
+                                required
+                            />
+                        </div>
+                        <div className='input'>
+                            <label>Nombre de personne</label>
+                            <div className="nbPersonneSelector">
+                                <button onClick={handleDecrementNbPersonnes}>-</button>
+                                <p className="nombrePersonne">{nombrePersonnes}</p>
+                                <button onClick={handleIncrementNbPersonnes}>+</button>
+                            </div>
+                        </div>
+                        <div className="input double-btn">
+                            <button onClick={handleClickResetDates}>Effacer les dates</button>
+                            <button onClick={handleClickReset}>Tout effacer</button>
+                        </div>
+                        <div className="input">
+                            <button onClick={handleSubmit}>Créer la réservation</button>
+                        </div>
+                    </form>
+                </div>
+            )}
+            
         </>
     );
 }

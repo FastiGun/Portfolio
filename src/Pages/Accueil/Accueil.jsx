@@ -36,7 +36,7 @@ const Accueil = () => {
     return (
         <>
             <h1 className='h1-top'>Accueil</h1>
-            { reservations === [] || reservations === undefined ?
+            { reservations.length === 0 ?
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div> : 

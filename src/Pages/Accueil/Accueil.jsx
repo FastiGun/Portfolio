@@ -8,7 +8,7 @@ const Accueil = () => {
 
     const { token } = useContext(AuthContext);
     const [reservations, setReservations] = useState([]);
-
+    const [reloadReservations, setReloadReservations] = useState(false);
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             headers: {
@@ -17,7 +17,20 @@ const Accueil = () => {
         }).then((response) => {
             setReservations(response.data.reservations);
         });
-    }, [token]);
+    }, [token, reloadReservations]);
+
+    const handleDeleteReservation = (id) => {
+        const shouldDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
+        if (shouldDelete) {
+            axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
+                setReloadReservations(true);
+            })
+        }
+    }
 
 
     return (
@@ -37,7 +50,7 @@ const Accueil = () => {
                                     <p className="card-text">{reservation.dateArrivee} - {reservation.dateDepart}</p>
                                     <p className="card-text">{reservation.nombrePersonne} personnes</p>
                                 </div>
-                                <button className="supprimer-reservation">
+                                <button className="supprimer-reservation" onClick={() => handleDeleteReservation(reservation._id)}>
                                     Annuler
                                 </button>
                             </div>

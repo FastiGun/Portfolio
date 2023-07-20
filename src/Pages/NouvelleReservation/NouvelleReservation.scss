@@ -88,6 +88,17 @@
                 transition: 0.3s all ease;
             }
         }
+
+        .double-btn{
+            flex-direction: row;
+            width: 100%;
+            gap: 1em;
+
+            button{
+                flex: 1;
+                
+            }
+        }
     }
 }
 

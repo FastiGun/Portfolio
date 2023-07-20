@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './NouvelleReservation.scss';
 import axios from 'axios';
 import { AuthContext } from '../../Utils/AuthContext';
 import { ToastContext } from '../../Utils/ToastContext';
+import { parse } from 'date-fns';
 
 const NouvelleReservation = () => {
     const { token } = useContext(AuthContext);
@@ -13,7 +14,41 @@ const NouvelleReservation = () => {
     const [nombrePersonnes, setNombrePersonnes] = useState(0);
     const [nomLocataire, setNomLocataire] = useState('');
     const [prenomLocataire, setPrenomLocataire] = useState('');
+
+    const [, setReservations] = useState([]);
+    const [reservedDates, setReservedDates] = useState([]);
     const toast = useContext(ToastContext);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
+            setReservations(response.data.reservations);
+            const reservedDatesArray = response.data.reservations.flatMap((reservation) => {
+                const startDate = parse(reservation.dateArrivee, 'dd/MM/yyyy', new Date());
+                const endDate = parse(reservation.dateDepart, 'dd/MM/yyyy', new Date());
+                const dates = [];
+                for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+                    dates.push(new Date(date));
+                }
+                return dates;
+            });
+            setReservedDates(reservedDatesArray);
+        });
+    }, [token]);
+
+    const tileContent = ({ date }) => {
+        const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        if (reservedDates.some((reservedDate) => {
+            const formattedReservedDate = new Date(reservedDate.getFullYear(), reservedDate.getMonth(), reservedDate.getDate());
+            return formattedReservedDate.getTime() === formattedDate.getTime();
+        })) {
+            return "reserved";
+        }
+        return "";
+    };
 
     const handleDateChange = (date) => {
         if (dateArrivee === null) {
@@ -31,6 +66,12 @@ const NouvelleReservation = () => {
         setDateArrivee(null);
         setDateDepart(null);
         setNombrePersonnes(0);
+    }
+
+    const handleClickResetDates = (e) => {
+        e.preventDefault();
+        setDateArrivee(null);
+        setDateDepart(null);
     }
 
     const handleSubmit = (e) => {
@@ -91,6 +132,7 @@ const NouvelleReservation = () => {
             <div className='calendrier'>
                 <Calendar className='calendar'
                     onChange={handleDateChange}
+                    tileClassName={tileContent} 
                 />
                 <form className="inputs" onSubmit={handleSubmit}>
                     <div className='input'>
@@ -137,7 +179,8 @@ const NouvelleReservation = () => {
                             <button onClick={handleIncrementNbPersonnes}>+</button>
                         </div>
                     </div>
-                    <div className="input">
+                    <div className="input double-btn">
+                        <button onClick={handleClickResetDates}>Effacer les dates</button>
                         <button onClick={handleClickReset}>Tout effacer</button>
                     </div>
                     <div className="input">

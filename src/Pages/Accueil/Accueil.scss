@@ -28,9 +28,15 @@
 
         button:hover {
             cursor: pointer;
-            background-color: $colorHover;
+            background-color: #b82d2d;
             color: $color4;
             transition: 0.3s all ease;
+        }
+
+        .card-body{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
         }
     }
 }

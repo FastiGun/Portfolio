@@ -83,7 +83,7 @@ const Calendrier = () => {
     return (
         <>
             <h1 className='h1-top'>Calendrier</h1>
-            {reservations === undefined || reservations === null ? (
+            {reservations === undefined || reservations === [] ? (
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div>
@@ -96,7 +96,7 @@ const Calendrier = () => {
                             <>
                                 {reservationInfo ? (
                                     <>
-                                        <p className="nom-locataire">{reservationInfo.nomLocataire} {reservationInfo.prenomLocataire}</p>
+                                        <p className="nom-locataire">{reservationInfo.prenomLocataire} {reservationInfo.nomLocataire}</p>
                                         <p className="date">Du {reservationInfo.dateArrivee} au {reservationInfo.dateDepart}</p> {/* Utilisez directement les dates de réservation sans appel à toLocaleDateString */}
                                         <p className="nbJours">{reservationInfo.dureeLocation} jours</p>
                                         <p className="heure">{reservationInfo.nombrePersonne} personnes</p>

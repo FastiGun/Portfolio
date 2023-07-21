@@ -23,7 +23,7 @@ const Accueil = () => {
     }, [token, reloadReservations]);
 
     const handleDeleteReservation = (id) => {
-        axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
+        axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id.id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -33,15 +33,17 @@ const Accueil = () => {
     }
 
     const handleAskDeleteReservation = (id) => {
-        
-        toast.current.show({severity: 'warn', summary: 'Suppression de la reservation', detail: "Vous allez supprimer cette reservation", life: 3000, content: <Confirm id={id}/>});
+        toast.current.show({severity: 'warn', summary: 'Suppression de la reservation', detail: "Vous allez supprimer cette reservation", life: 30000, content: <Confirm id={id}/>, closable: false});
     }
 
     const Confirm = (id) => {
-
         return (
-            <div>
-                <button onClick={() => handleDeleteReservation(id.id)}>Oui</button><button onClick={() => toast.current.clear()}>Non</button>
+            <div className='confirm'>
+                <h4>Voulez-vous vraiment supprimer cette reservation ?</h4>
+                <div className="confirm-div">
+                    <button className="oui" onClick={() => handleDeleteReservation(id)}>Oui</button>
+                    <button className="non" onClick={() => toast.current.clear()}>Non</button>
+                </div>
             </div>
         )
     }

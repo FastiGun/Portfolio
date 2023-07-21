@@ -78,33 +78,38 @@ const NouvelleReservation = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`${process.env.REACT_APP_BASE_URL}/reservations`, {
-            "nomLocataire": nomLocataire,
-            "prenomLocataire": prenomLocataire,
-            "dateArrivee": dateArrivee,
-            "dateDepart": dateDepart,
-            "nombrePersonne": nombrePersonnes
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response) => {
-            if (response.status === 201) {
-                setNomLocataire('');
-                setPrenomLocataire('');
-                setDateArrivee(null);
-                setDateDepart(null);
-                setNombrePersonnes(0);
-                toast.current.show({severity: 'success', summary: 'Enregistrement', detail: 'Réservation créée'});
-            }
-        }).catch((error) => {
-            if (error.response.status === 409) {
-                toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Réservation impossible, dates déjà réservées'});
-            }
-            else {
-                toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Erreur inconnue'});
-            }
-        })
+        if(dateArrivee === null || dateDepart === null || nombrePersonnes === 0 || nomLocataire === '' || prenomLocataire === '') {
+            toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Veuillez remplir tous les champs'});
+        } else {
+            axios.post(`${process.env.REACT_APP_BASE_URL}/reservations`, {
+                "nomLocataire": nomLocataire,
+                "prenomLocataire": prenomLocataire,
+                "dateArrivee": dateArrivee,
+                "dateDepart": dateDepart,
+                "nombrePersonne": nombrePersonnes
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((response) => {
+                if (response.status === 201) {
+                    setNomLocataire('');
+                    setPrenomLocataire('');
+                    setDateArrivee(null);
+                    setDateDepart(null);
+                    setNombrePersonnes(0);
+                    toast.current.show({severity: 'success', summary: 'Enregistrement', detail: 'Réservation créée'});
+                }
+            }).catch((error) => {
+                if (error.response.status === 409) {
+                    toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Réservation impossible, dates déjà réservées'});
+                }
+                else {
+                    toast.current.show({severity: 'error', summary: 'Enregistrement', detail: 'Erreur inconnue'});
+                }
+            })
+        }
+        
     }
 
     const handleIncrementNbPersonnes = (e) => {

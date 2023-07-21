@@ -4,6 +4,7 @@ import Accueil from './Pages/Accueil/Accueil';
 import Calendrier from './Pages/Calendrier/Calendrier';
 import Connexion from './Pages/Connexion/Connexion';
 import NouvelleReservation from './Pages/NouvelleReservation/NouvelleReservation';
+import PageIntrouvable from './Pages/PageIntrouvable/PageIntrouvable';
 import ProtectedRoute from './Utils/ProtectedRoute';
 import { AuthContext } from './Utils/AuthContext';
 import { useState, useContext } from 'react';
@@ -76,10 +77,6 @@ function App() {
       </Router>
     </AuthContext.Provider>
   );
-}
-
-function PageIntrouvable() {
-  return <h2>Page introuvable</h2>;
 }
 
 export default App;

@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './NouvelleReservation.scss';
@@ -19,6 +20,7 @@ const NouvelleReservation = () => {
     const [, setReservations] = useState([]);
     const [reservedDates, setReservedDates] = useState([]);
     const toast = useContext(ToastContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
@@ -99,6 +101,7 @@ const NouvelleReservation = () => {
                     setDateDepart(null);
                     setNombrePersonnes(0);
                     toast.current.show({severity: 'success', summary: 'Enregistrement', detail: 'Réservation créée'});
+                    navigate('/');
                 }
             }).catch((error) => {
                 if (error.response.status === 409) {
@@ -150,6 +153,7 @@ const NouvelleReservation = () => {
                             <input
                                 type="text"
                                 value={dateArrivee ? dateArrivee : ''}
+                                placeholder='Choisir sur le calendrier'
                                 readOnly
                                 required
                             />
@@ -159,6 +163,7 @@ const NouvelleReservation = () => {
                             <input
                                 type="text"
                                 value={dateDepart ? dateDepart : ''}
+                                placeholder={dateArrivee === null ? '' : 'Choisir sur le calendrier'}
                                 readOnly
                                 required
                             />

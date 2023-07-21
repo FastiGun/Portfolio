@@ -71,6 +71,7 @@ const Accueil = () => {
                                 </div>
                                 <button className="supprimer-reservation" onClick={() => handleAskDeleteReservation(reservation._id)}>
                                     <i className="pi pi-calendar-times"></i>
+                                    <p>Annuler</p>
                                 </button>
                             </div>
                         )

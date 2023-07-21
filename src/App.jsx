@@ -19,6 +19,12 @@ function App() {
     setShowLogOut(!showLogOut);
   }
 
+  const handleClickToggleLogOut = () => {
+    if (showLogOut) {
+      handleClickLogOut();
+    }
+  }
+
   const handleClickLoged = () => {
     setLogged(false);
     setUserName('');
@@ -34,7 +40,7 @@ function App() {
     <AuthContext.Provider value={{ logged, setLogged, userName, setUserName, token, setToken }}>
       <Router>
         <div>
-          <div className="App">
+          <div className="App" onClick={handleClickToggleLogOut}>
             <header className="App-header">
               <div className="gauche">
                 <h1>

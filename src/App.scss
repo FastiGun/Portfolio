@@ -37,16 +37,12 @@ $colorHover: #545980;
     }
   }
 
-  header{
-    background-color: $color3;
-  }
-
   .App-header {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: $color3;
+    background-color: $color3 !important;
     padding: 1em 2em;
     min-height: 5em;
 
@@ -91,6 +87,7 @@ $colorHover: #545980;
         display: flex;
         font-size: 1.5em;
         gap: 1.5em;
+        background-color: $color3 !important;
 
         @media screen and (max-width: 800px) {
           font-size: 1em !important;

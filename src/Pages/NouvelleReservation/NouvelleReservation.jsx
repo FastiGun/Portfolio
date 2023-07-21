@@ -189,7 +189,7 @@ const NouvelleReservation = () => {
                             <button onClick={handleClickReset}>Tout effacer</button>
                         </div>
                         <div className="input">
-                            <button onClick={handleSubmit}>Créer la réservation</button>
+                            <button className="submit" onClick={handleSubmit}>Créer la réservation</button>
                         </div>
                     </form>
                 </div>

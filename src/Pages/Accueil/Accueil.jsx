@@ -21,7 +21,6 @@ const Accueil = () => {
 
     const handleDeleteReservation = (id) => {
         const shouldDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
-        
         if (shouldDelete) {
             axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
                 headers: {

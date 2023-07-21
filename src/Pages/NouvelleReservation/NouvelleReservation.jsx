@@ -125,7 +125,7 @@ const NouvelleReservation = () => {
 
     const handleChangeNomLocataire = (e) => {
         e.preventDefault();
-        setNomLocataire(e.target.value);
+        setNomLocataire(e.target.value.toUpperCase());
     }
 
     const handleChangePrenomLocataire = (e) => {

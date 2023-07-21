@@ -15,12 +15,13 @@ const Accueil = () => {
                 Authorization: `Bearer ${token}`
             }
         }).then((response) => {
-            setReservations(response.data.reservations);
+            setReservations(response.data.reservations.reverse());
         });
     }, [token, reloadReservations]);
 
     const handleDeleteReservation = (id) => {
         const shouldDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
+        
         if (shouldDelete) {
             axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
                 headers: {

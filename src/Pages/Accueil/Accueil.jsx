@@ -2,13 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Utils/AuthContext';
 import axios from "axios";
 import { Circles } from 'react-loader-spinner';
+import { ToastContext } from '../../Utils/ToastContext';
 import './Accueil.scss';
 
 const Accueil = () => {
 
     const { token } = useContext(AuthContext);
     const [reservations, setReservations] = useState([]);
-    const [reloadReservations, setReloadReservations] = useState(false);
+    const [reloadReservations, setReloadReservations] = useState(false)
+    const toast = useContext(ToastContext);
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             headers: {
@@ -20,16 +23,27 @@ const Accueil = () => {
     }, [token, reloadReservations]);
 
     const handleDeleteReservation = (id) => {
-        const shouldDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?");
-        if (shouldDelete) {
-            axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((response) => {
-                setReloadReservations(true);
-            })
-        }
+        axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response) => {
+            setReloadReservations(true);
+        })
+    }
+
+    const handleAskDeleteReservation = (id) => {
+        
+        toast.current.show({severity: 'warn', summary: 'Suppression de la reservation', detail: "Vous allez supprimer cette reservation", life: 3000, content: <Confirm id={id}/>});
+    }
+
+    const Confirm = (id) => {
+
+        return (
+            <div>
+                <button onClick={() => handleDeleteReservation(id.id)}>Oui</button><button onClick={() => toast.current.clear()}>Non</button>
+            </div>
+        )
     }
 
 
@@ -50,7 +64,7 @@ const Accueil = () => {
                                     <p className="card-text">{reservation.dateArrivee} - {reservation.dateDepart}</p>
                                     <p className="card-text">{reservation.nombrePersonne} personnes</p>
                                 </div>
-                                <button className="supprimer-reservation" onClick={() => handleDeleteReservation(reservation._id)}>
+                                <button className="supprimer-reservation" onClick={() => handleAskDeleteReservation(reservation._id)}>
                                     Annuler
                                 </button>
                             </div>

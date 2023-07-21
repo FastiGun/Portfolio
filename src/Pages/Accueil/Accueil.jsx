@@ -39,7 +39,7 @@ const Accueil = () => {
     const Confirm = (id) => {
         return (
             <div className='confirm'>
-                <h4>Voulez-vous vraiment supprimer cette reservation ?</h4>
+                <h4>Voulez-vous vraiment supprimer cette réservation ?</h4>
                 <div className="confirm-div">
                     <button className="oui" onClick={() => handleDeleteReservation(id)}>Oui</button>
                     <button className="non" onClick={() => toast.current.clear()}>Non</button>

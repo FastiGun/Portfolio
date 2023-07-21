@@ -12,9 +12,9 @@
         justify-content: space-between;
         border-bottom: 1px solid $color1;
         padding: 1.5em 0;
+        align-items: center;
 
         button {
-            padding: 0.3em;
             background-color: $color4;
             border: none;
             font-size: 1.2em;
@@ -31,6 +31,14 @@
             background-color: #b82d2d;
             color: $color4;
             transition: 0.3s all ease;
+        }
+
+        .supprimer-reservation{
+            background-color: $color4;
+
+            i{
+                font-size: 3em;
+            }
         }
 
         .card-body{

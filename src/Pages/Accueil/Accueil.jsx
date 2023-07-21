@@ -3,6 +3,7 @@ import { AuthContext } from '../../Utils/AuthContext';
 import axios from "axios";
 import { Circles } from 'react-loader-spinner';
 import { ToastContext } from '../../Utils/ToastContext';
+import 'primeicons/primeicons.css';
 import './Accueil.scss';
 
 const Accueil = () => {
@@ -69,7 +70,7 @@ const Accueil = () => {
                                     <p className="card-text">{reservation.nombrePersonne} personnes</p>
                                 </div>
                                 <button className="supprimer-reservation" onClick={() => handleAskDeleteReservation(reservation._id)}>
-                                    Annuler
+                                    <i className="pi pi-calendar-times"></i>
                                 </button>
                             </div>
                         )

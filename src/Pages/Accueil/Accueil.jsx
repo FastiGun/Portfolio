@@ -29,6 +29,8 @@ const Accueil = () => {
             }
         }).then((response) => {
             setReloadReservations(true);
+            toast.current.clear();
+            toast.current.show({severity: 'success', summary: 'Suppression de la reservation', detail: "La réservation a bien été supprimée", life: 3000});
         })
     }
 

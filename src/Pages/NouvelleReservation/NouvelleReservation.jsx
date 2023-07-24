@@ -16,6 +16,7 @@ const NouvelleReservation = () => {
     const [nombrePersonnes, setNombrePersonnes] = useState(0);
     const [nomLocataire, setNomLocataire] = useState('');
     const [prenomLocataire, setPrenomLocataire] = useState('');
+    const [montantTotal, setMontantTotal] = useState();
 
     const [, setReservations] = useState([]);
     const [reservedDates, setReservedDates] = useState([]);
@@ -70,6 +71,7 @@ const NouvelleReservation = () => {
         setDateArrivee(null);
         setDateDepart(null);
         setNombrePersonnes(0);
+        setMontantTotal(0);
     }
 
     const handleClickResetDates = (e) => {
@@ -88,7 +90,8 @@ const NouvelleReservation = () => {
                 "prenomLocataire": prenomLocataire,
                 "dateArrivee": dateArrivee,
                 "dateDepart": dateDepart,
-                "nombrePersonne": nombrePersonnes
+                "nombrePersonne": nombrePersonnes,
+                "montantTotal": montantTotal
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -100,6 +103,7 @@ const NouvelleReservation = () => {
                     setDateArrivee(null);
                     setDateDepart(null);
                     setNombrePersonnes(0);
+                    setMontantTotal(0);
                     toast.current.show({severity: 'success', summary: 'Enregistrement', detail: 'Réservation créée'});
                     navigate('/');
                 }
@@ -134,6 +138,11 @@ const NouvelleReservation = () => {
     const handleChangePrenomLocataire = (e) => {
         e.preventDefault();
         setPrenomLocataire(e.target.value);
+    }
+
+    const handleChangeMontantTotal = (e) => {
+        e.preventDefault();
+        setMontantTotal(e.target.value);
     }
 
     return (
@@ -183,6 +192,15 @@ const NouvelleReservation = () => {
                                 type="text"
                                 value={prenomLocataire}
                                 onChange={handleChangePrenomLocataire}
+                                required
+                            />
+                        </div>
+                        <div className='input'>
+                            <label>Montant total en euros</label>
+                            <input
+                                type="number"
+                                value={montantTotal}
+                                onChange={handleChangeMontantTotal}
                                 required
                             />
                         </div>

@@ -17,6 +17,7 @@ const NouvelleReservation = () => {
     const [nomLocataire, setNomLocataire] = useState('');
     const [prenomLocataire, setPrenomLocataire] = useState('');
     const [montantTotal, setMontantTotal] = useState();
+    const [isLoading, setIsLoading] = useState(true);
 
     const [, setReservations] = useState([]);
     const [reservedDates, setReservedDates] = useState([]);
@@ -24,6 +25,7 @@ const NouvelleReservation = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -41,7 +43,7 @@ const NouvelleReservation = () => {
             });
             setReservedDates(reservedDatesArray);
         });
-        
+        setIsLoading(false);
     }, [token]);
 
     const tileContent = ({ date }) => {
@@ -148,7 +150,7 @@ const NouvelleReservation = () => {
     return (
         <>
             <h1 className='h1-top'>Nouvelle réservation</h1>
-            {reservedDates.length === 0 ? (
+            {isLoading ? (
                 <div className="loader-page"><Circles color='#070f4e' height={100} width={100} /></div>
             ) : (
                 <div className='calendrier'>

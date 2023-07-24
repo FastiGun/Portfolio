@@ -18,9 +18,11 @@ const Accueil = () => {
     const { token } = useContext(AuthContext);
     const [reservations, setReservations] = useState([]);
     const [reloadReservations, setReloadReservations] = useState(false)
+    const [isLoading, setIsLoading] = useState(true);
     const toast = useContext(ToastContext);
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -28,7 +30,8 @@ const Accueil = () => {
         }).then((response) => {
             setReservations(response.data.reservations.reverse());
         });
-    }, [token, reloadReservations]);
+        setIsLoading(false);
+    }, [token, reloadReservations, reservations]);
 
     const handleDeleteReservation = (id) => {
         axios.delete(`${process.env.REACT_APP_BASE_URL}/reservations/${id.id}`, {
@@ -116,7 +119,7 @@ const Accueil = () => {
     return (
         <>
             <h1 className='h1-top'>Accueil</h1>
-            { reservations.length === 0 ?
+            { isLoading ?
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div> : 

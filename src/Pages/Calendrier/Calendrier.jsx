@@ -14,8 +14,10 @@ const Calendrier = () => {
     const [reservedDates, setReservedDates] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [showInfos, setShowInfos] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(`${process.env.REACT_APP_BASE_URL}/reservations`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -32,6 +34,7 @@ const Calendrier = () => {
                 return dates;
             });
             setReservedDates(reservedDatesArray);
+            setIsLoading(false);
         });
     }, [token]);
 
@@ -83,7 +86,7 @@ const Calendrier = () => {
     return (
         <>
             <h1 className='h1-top'>Calendrier</h1>
-            {reservedDates.length === 0 ? (
+            {isLoading ? (
                 <div className="loader-page">
                     <Circles color='#070f4e' height={100} width={100} />
                 </div>

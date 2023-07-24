@@ -29,7 +29,7 @@
 
         button:hover {
             cursor: pointer;
-            background-color: #b82d2d;
+            
             color: $color4;
             transition: 0.3s all ease;
         }
@@ -41,12 +41,36 @@
                 font-size: 2.6em;
                 margin-bottom: 0.2em;
             }
+
+            &:hover{
+                background-color: #b82d2d;
+            }
+        }
+
+        .creation-contrat{
+            background-color: $color4;
+
+            i{
+                font-size: 2.6em;
+                margin-bottom: 0.2em;
+            }
+
+            &:hover{
+                background-color: $color2;
+            }
+            
         }
 
         .card-body{
             display: flex;
             flex-direction: column;
             gap: 0.5em;
+        }
+
+        .btns-home{
+            display: flex;
+            gap: 1em;
+
         }
     }
 }
